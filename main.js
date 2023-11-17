@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', (event) => {
+const cardContainer = document.getElementById("cardContainer");
 const htmlFolder = "days";
 
 function createProjectCard(day, title, description, name) {
@@ -60,9 +62,9 @@ async function fetchProjectDays(folder) {
     return htmlFiles;
 }
 fetchProjectDays("days").then((htmlFiles) => {
-  const cardContainer = document.getElementById("cardContainer");
   htmlFiles.forEach((file, index) => {
     const card = createProjectCard(index+1, file.fileTitle, file.fileDescription, file.name);
   cardContainer.appendChild(card);
   });
 })
+});
