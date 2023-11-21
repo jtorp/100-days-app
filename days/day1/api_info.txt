@@ -8,8 +8,29 @@ let q=`${lat},${lon}`;
 const fetchGeoLocationKey = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ACC_API_KEY}&q=${q}&details=false`
 
 Returns: key 649991
+then get current conditon weathercurl -X GET "http://dataservice.accuweather.com/currentconditions/v1/649991?apikey=NyaBIVLBVJor5AHLqdOxmKHx51CixtN6"
 
 
+async function getGeoLocationKey() {
+    try {
+        const geopositionKey = await fetch(fetchGeoLocationKey);
+        const geopositionKeyData = await geopositionKey.json();
+       return geopositionKeyData.Key
+    } catch (error) {
+        console.error('Error fetching geoposition data:', error);
+        throw error; 
+    }
+}
+let globalKey;
+
+async function setGlobalKey() {
+    try {
+        globalKey = await getGeoLocationKey();
+        console.log('Global key:', globalKey); // Use the key retrieved here
+    } catch (error) {
+        console.error('Error setting global key:', error);
+        throw error;}
+}
 2nd APIS WeatherStack
 const WS_API_KEY = "ceb86198dbe2f00e7fd27d72784855e5";
 const fetchWSUrl = `https://api.weatherstack.com/current?access_key=${WS_API_KEY}&query=${query}`
