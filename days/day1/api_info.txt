@@ -35,6 +35,5 @@ async function setGlobalKey() {
 const WS_API_KEY = "ceb86198dbe2f00e7fd27d72784855e5";
 const fetchWSUrl = `https://api.weatherstack.com/current?access_key=${WS_API_KEY}&query=${query}`
 
-
 3rd APIS FREE CODE CAMP
 `https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${lon}`
