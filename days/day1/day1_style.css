@@ -1,0 +1,217 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+a {
+	color:slateblue;
+	font-weight: 700;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+body {
+	color: #141314;
+  background-color: rgba(27, 190, 234, 0.84);
+	font-family: 'Alegreya Sans', sans-serif;
+	font-weight: 300;
+	position: relative;
+	letter-spacing: 0.05rem;
+	line-height: 1.5;
+	text-align: center;
+}
+:focus {
+	outline: none;
+}
+
+.wrapper {
+	color: #141314;
+	overflow: auto;
+	width: 100%;
+  padding: 2rem;
+}
+/*----------------
+	header, footer, buttons
+-----------------*/
+button {
+	border: none;
+	cursor: pointer;
+}
+nav {
+	font-size: 1rem;
+	margin: 0 auto;
+	padding: 5% 0 10%;
+}
+#geoLocationBtn, #unitBtn {
+	background: none;
+	border: 1px solid rgba(255,255,255,0.25);
+	border-radius: 50%;
+	color: #fff;
+	height: 44px;
+	transition: background 1s ease-in-out, border 0.2s ease-in-out;
+	width: 44px;
+}
+#geoLocationBtn.on, #unitBtn.on {
+	background: rgba(255,255,255,0.25);
+}
+#geoLocationBtn:focus, #geoLocationBtn:hover, #unitBtn:focus, #unitBtn:hover {
+	border: 1px solid rgba(255,255,255,0.75);
+}
+#geoLocationBtn {
+	margin-right: 10px;
+}
+#unitBtn {
+	font-weight: 300;
+	padding-right: 3px;
+	padding-top: 2px;
+	text-transform: uppercase;
+}
+#unitBtn:before {
+	content: '\00b0'; /* Degree symbol */
+	padding: 1px;
+}
+#geoLocationBtn  {
+	animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  20% { background: rgba(255,255,255,0.15); }
+}
+
+
+
+.box .location-box {
+  position: relative;
+}
+
+.box .location-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.box .location-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 1.1rem;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.box .location-box input:focus ~ label,
+.box .location-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: rgba(255,255,255,0.45);;
+  font-size: .8rem;
+}
+
+#footer {
+  font-size: 10px;
+  font-size: 0.8rem;
+	letter-spacing: 0.07em;
+	line-height: 2;
+	padding: .6rem 0;
+	width: 100%;
+}
+#lastUpdated {
+	color: #141314;
+	padding: 5% 0;
+}
+
+/*----------------
+	Current Weather
+-----------------*/
+#current {
+	padding: 10% 5% 20%;
+	position: relative;
+}
+#location {
+	font-size: 2em;
+	font-weight: 700;
+	margin: 0;
+  color: #fff;
+}
+.date {
+	font-size: 1em;
+	font-weight: 300;
+	text-transform: uppercase;
+}
+
+
+
+
+hr {
+  margin-top: 3px;
+  border-width: 1px 0;
+  border-color: #EEEEEE;
+  border-color: #888485;
+  border-color: white;
+}
+
+.lds-ripple {
+  display: flex;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid #fafafa;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
+.locationName{
+  border: 1px solid red;
+  padding: 10px;
+}

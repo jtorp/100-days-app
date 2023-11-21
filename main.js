@@ -14,7 +14,7 @@ function createProjectCard(day, title, description, name) {
     cardTitle.classList.add('title');
     cardTitle.textContent = title;
     cardTitle.addEventListener('click', function () {
-        window.location.assign(`./${htmlFolder}/day${day}.html`);
+        window.location.assign(`./${htmlFolder}/day${day}/day${day}.html`);
 
     })
       // Conditionally add a different class based on the value of fileTitle
@@ -33,13 +33,13 @@ function createProjectCard(day, title, description, name) {
     return card;
 }
 
-async function fetchProjectDays(folder) {
+async function fetchProjectDays() {
     const htmlFiles = [];
     let i = 1;
 
     while (i<=2) {
         try {
-            const response = await fetch(`./${folder}/day${i}.html`);
+            const response = await fetch(`./${htmlFolder}/day${i}/day${i}.html`);
 
             if (!response.ok) {
                 break;

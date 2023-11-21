@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Weather widget fetching data from free APIs">
+    <link rel="stylesheet" href="./day1_style.css">
+    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:300,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Weather Widget</title>
+</head>
+
+
+<!-- <body> 
+    <div id="app">
+        <div class="panel">
+            <button  id="geolocation" title="get my location"></button>
+            <form action="GET" method="get" id="form">
+                <input class="input" type="text" name="town" id="town" placeholder="type your location">
+            </form>
+        </div> 
+       
+    
+        <div class="container">
+           <div class="lds-ripple"><div></div><div></div></div>
+                  
+        </div> 
+
+        <div id="current" class="wrapper">
+            <nav>
+                <button id="locateBtn">
+                    <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                </button>
+                <button id="unitBtn" data-units="f">f</button>
+            </nav>
+            <h1 class="location">Chicago, IL</h1>
+            <h2 class="date">Sunday, January 1, 2017</h2>
+            <div class="weatherIcon">
+                <div class="sunny">
+                    <div class="inner"></div>
+                </div>
+            </div>
+            <p class="temp">72</p>
+            <p class="conditions">Sunny</p>
+        </div>
+        <footer id="footer">
+            <p>&copy; JULIA°LΔB - <span id="copyrightDate"> </span> | Photo Credit: Respective Owners on Unsplash.com</p>
+        </footer>
+      
+    </div>
+    <script type="module" src="./day1.js"></script>
+</body> -->
+
+<body>
+
+	<!-- Current Weather -->
+	<div id="current" class="wrapper">
+		<nav>
+			<button id="geoLocationBtn">
+				<i class="fa fa-location-arrow" ></i>
+			</button>
+			<button id="unitBtn" data-units="C">C</button>
+            <form action="GET" method="get" id="form" class="box">
+                <div class="location-box">
+                    <input type="text" name="" required="" id="town">
+                    <label>Location</label>
+                  </div>
+                
+            </form>
+		</nav>
+		<h1  id="location">Perth</h1>
+		<h2 class="date">Sunday, January 1, 2017</h2>
+		<div class="weatherIcon">
+			<div class="sunny">
+				<div class="inner"></div>
+			</div>
+		</div>
+		<p class="temp">72</p>
+		<p class="conditions">Sunny</p>
+	</div>
+	<!-- Future Forecast -->
+	<div id="future" class="wrapper">
+		<div class="container">
+			<h3 class="day">Mon</h3>
+			<div class="weatherIcon">
+				<div class="partlycloudy">
+					<div class="inner"></div>
+				</div>
+			</div>
+			<p class="conditions">Partly Cloudy</p>
+			<p class="tempRange"><span class="high">64</span> | <span class="low">48</span></p>
+		</div>
+		<div class="container">
+			<h3 class="day">Tue</h3>
+			<div class="weatherIcon">
+				<div class="mostlycloudy">
+					<div class="inner"></div>
+				</div>
+			</div>
+			<p class="conditions">Mostly Cloudy</p>
+			<p class="tempRange"><span class="high">57</span> | <span class="low">45</span></p>
+		</div>
+		<div class="container">
+			<h3 class="day">Wed</h3>
+			<div class="weatherIcon">
+				<div class="rain">
+					<div class="inner"></div>
+				</div>
+			</div>
+			<p class="conditions">Chance of Rain</p>
+			<p class="tempRange"><span class="high">63</span> | <span class="low">59</span></p>
+		</div>
+	</div>
+	<footer>
+    <p id="lastUpdated"> &copy;  <span id="copyrightDate"> </span> All rights reserved  </p>
+	 <p>Created by <a href="https://100-days-of-vanilla.netlify.app" title="Visit 100 Days of Code Site" target="_blank"> JULIA°LΔB</a> | Weather data from <a href="https://www.weatherstack.com/" title="Weatherstack.com" target="_blank">Weatherstack</a> | Photo Credit Respective Owners on 
+        <a href="https://www.Unsplash.com/" title="Unsplash.com" target="_blank">Unsplash</a>
+    </p>
+	</footer>
+    <script type="module" src="./day1.js"></script>
+</body>
+</html>
