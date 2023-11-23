@@ -7,14 +7,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentYear = new Date().getFullYear();
     copyrightDate.innerText = currentYear;
 
-    const location = document.getElementById('location');
+    let location = document.getElementById('location');
     const form = document.getElementById('form');
     const textInput = document.getElementById('town');
     let geoCoordinates = null;
 
     // Geolocation functions
-    function getGeoLocation() {
-        store.name = 'Locating...';
+    async function handleGetGeoLocation() {
+        location = 'Locating...';
+       
         async function geoLocationSuccess(position) {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
@@ -28,7 +29,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const data = await response.json();
                 console.log('Coordinates:', data.lat, data.lon);
-                store.name = data.address?.town + ', ' + data.address?.country || 'Unknown';
+                location= data.address?.town + ', ' + data.address?.country || 'Unknown';
+                store={
+                    ...store,
+                    name: location
+                }
+                console.log(store);
+                await fetchWeatherData(); // Call the weather data fetching function
+
             } catch (error) {
                 console.error('Error fetching town information:', error);
 
@@ -36,18 +44,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         function geoLocationError() {
-            store.name.innerText = 'Unable to retrieve your location';
+            location = 'Unable to retrieve your location';
         }
 
         if (!navigator.geolocation) {
             location.innerText = 'Geolocation is not supported by your browser';
         } else {
-            store.name = 'Locating...';
+            location = 'Locating...';
             navigator.geolocation.getCurrentPosition(geoLocationSuccess, geoLocationError);
         }
     }
 
-    document.querySelector("#geoLocationBtn")?.addEventListener("click", getGeoLocation);
+    document.querySelector("#geoLocationBtn")?.addEventListener("click", handleGetGeoLocation);
 
     // ---------------
     // Weather API https://www.weatherapi.com/
