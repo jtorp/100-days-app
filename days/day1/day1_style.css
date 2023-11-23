@@ -4,8 +4,12 @@
 	padding: 0;
 }
 
+input:-webkit-autofill {
+	color: #ffffff;
+    -webkit-box-shadow: 0 0 0 0px #1a1b4b inset; /* Change the color here */
+}
 a {
-	color: #80c0ff;
+	color: #9acefe;
 	font-weight: 600;
 	font-size: 1rem;
 	text-decoration: none;
@@ -16,8 +20,8 @@ a:hover {
 }
 
 body {
-	color: #fafafa;
-	background-color: rgba(27, 190, 234, 0.84);
+	color: #ffffff;
+	background-color: #3a9efd;
 	font-family: 'Alegreya Sans', sans-serif;
 	font-weight: 300;
 	position: relative;
@@ -31,7 +35,6 @@ body {
 }
 
 .wrapper {
-	color: #fafafa;
 	overflow: auto;
 	width: 100%;
 	padding: 1rem .4rem;
@@ -113,10 +116,10 @@ nav {
 .box .location-box input {
 	width: 100%;
 	padding: 10px 0;
-	color: #fafafa;
 	margin-bottom: 30px;
 	border: none;
 	border-bottom: 1px solid #fafafa;
+	color: #fafafa;
 	outline: none;
 	background: transparent;
 
@@ -147,11 +150,12 @@ nav {
 	letter-spacing: 0.07em;
 	line-height: 2;
 	padding: .6rem 0;
+	border: 2px solid red;
 	width: 100%;
 }
 
 #lastUpdated {
-	color: #80c0ff;
+	color: #9acefe;
 	padding: 12% 0 2% 0;
 }
 
@@ -161,7 +165,6 @@ Current Forecast
 #forecast {
 	padding: 10% 5% 20%;
 	position: relative;
-	color: #fafafa;
 }
 
 #location {
@@ -216,7 +219,7 @@ Current Forecast
 	font-size: 1em;
 }
 
-#forecast .additional {
+#forecast .properties {
 	display: grid;
 	width: 100%;
 	margin: 4% 3%;
@@ -224,7 +227,7 @@ Current Forecast
 	gap: .25rem;
 }
 
-.additional p {
+.properties p {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -407,6 +410,7 @@ Current Forecast
 
 	footer {
 		font-size: 0.9rem;
+		padding: 1.5rem 0;
 	}
 }
 

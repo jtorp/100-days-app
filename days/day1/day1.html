@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Weather widget fetching data from free APIs">
+    <meta name="description" content="Weather widget fetching data from Weather APIs">
     <link rel="stylesheet" href="./day1_style.css">
     <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:300,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>Weather Widget</title>
 </head>
 
 <body>
-    <!-- Current Forecast -->
     <div class="wrapper">
         <nav>
             <button id="geoLocationBtn">
-                <i class="fa fa-location-arrow"></i>
+                <span class="material-symbols-outlined">
+                    location_on
+                </span>
             </button>
-            <button id="unitBtn" data-units="C">F</button>
+
             <form action="GET" method="get" id="form" class="box">
                 <div class="location-box">
-                    <input type="text" name="" required="" id="town">
+                    <input type="text" name="town" required id="town">
                     <label>Find Location</label>
                 </div>
-
             </form>
         </nav>
+        <!-- <div class="lds-ripple"><div></div><div></div></div> -->
         <div id="forecast"></div>
+
     </div>
-    <!-- Future Forecast -->
-    <div id="future">
+    <div class="wrapper">
+        <div id="future">
+        </div>
     </div>
     <footer>
-        <p id="lastUpdated"> &copy; <span id="copyrightDate"> </span> All rights reserved </p>
-        <p>Created by <a href="https://100-days-of-vanilla.netlify.app" title="Visit 100 Days of Code Site"
-                target="_blank"> JULIA°LΔB</a> | Weather data from <a href="https://www.weatherstack.com/"
-                title="Weatherstack.com" target="_blank">Weatherstack</a> | Photo Credit Respective Owners on
-            <a href="https://www.Unsplash.com/" title="Unsplash.com" target="_blank">Unsplash</a>
+        <p id="lastUpdated"> </p>
+        <p> Created by &copy; <a href="https://100-days-of-vanilla.netlify.app" title="Visit 100 Days of Code Site"
+                target="_blank"> JULIA°LΔB </a> <span id="copyrightDate"> </span> | Weather data from <a
+                href="https://www.weatherapi.com/" title="weatherapi.com" target="_blank">Weather API</a>
         </p>
     </footer>
     <script type="module" src="./day1.js"></script>
