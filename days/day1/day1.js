@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     properties: {
                         cloud: {
                             icon:`cloud`,
-                            value:`${cloud}%`
+                            value:`Cloudiness:${cloud}%`
                         },
                         uv: {
                             icon: "sunny",
@@ -129,15 +129,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         },
                         vis_km: {
                             icon: "visibility",
-                            value:`${vis_km} km`
+                            value:`Visibility: ${vis_km} km`
                         },
                         humidity: {
                             icon: "humidity_percentage",
-                            value:`${humidity}%`
+                            value:`Humidity ${humidity}%`
                         },
                         wind_kph : {
                             icon: "air",
-                            value:`${wind_kph} km/h`
+                            value:`Wind Speed: ${wind_kph} km/h`
                         }
                     },             
                 forecastday
@@ -246,7 +246,11 @@ form.addEventListener('submit', handleSubmit);
 
 
 
-
+//TODO
+// 1. errors with user input with wrong city/typo
+// 2. loader
+// 3. background color on day/night optimise
+// 4. 
 
 
 

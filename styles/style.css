@@ -41,6 +41,7 @@ h6 {
   display: flex;
   flex-direction: column;
   align-items: last baseline;
+  justify-content: center;
   font-family: 'Petrona', serif;
   margin: 1.5rem 0;
 }
@@ -50,7 +51,7 @@ h6 {
 }
 
 .sub {
-  font-variant: small-caps;
+text-align: center;
   font-size: .8rem;
   margin-top: -0.6rem;
   font-family: 'Open Sans', sans-serif;
@@ -102,7 +103,7 @@ h6 {
 
 .icon {
   font-size: 9rem;
-  color:;
+  color:#f5f6f7;
   font-family: 'Petrona', serif;
   position: absolute;
   right: 50%;

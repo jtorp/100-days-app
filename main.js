@@ -1,70 +1,72 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-const cardContainer = document.getElementById("cardContainer");
-const htmlFolder = "days";
+    const cardContainer = document.getElementById("cardContainer");
+    const htmlFolder = "days";
+    // const baseURL = 'http://localhost:5173/':'https://100-days-of-vanilla.netlify.app/';
 
-function createProjectCard(day, title, description, name) {
-    const card = document.createElement('div');
-    card.classList.add('card');
-    
-    const icon = document.createElement('div');
-    icon.classList.add('icon');
-    icon.textContent = `${day}`;
+    const baseURL = 'http://localhost:5173/';
 
-    const cardTitle = document.createElement('div');
-    cardTitle.classList.add('title');
-    cardTitle.textContent = title;
-    cardTitle.addEventListener('click', function () {
-        window.location.assign(`./${htmlFolder}/day${day}/day${day}.html`);
+    function createProjectCard(day, title, description, name) {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        const icon = document.createElement('div');
 
-    })
-      // Conditionally add a different class based on the value of fileTitle
-      if (title === 'Coming soon') {
-          card.classList.add('coming-soon');
-      }
-  
+        icon.classList.add('icon');
+        icon.textContent = `${day}`;
 
-    const cardText = document.createElement('div');
-    cardText.classList.add('text');
-    cardText.textContent = description;
+        const cardTitle = document.createElement('div');
+        cardTitle.classList.add('title');
+        cardTitle.textContent = title;
+        cardTitle.addEventListener('click', function () {
+            window.location.assign(`./${htmlFolder}/day${day}/day${day}.html`);
 
-    card.appendChild(icon);
-    card.appendChild(cardTitle);
-    card.appendChild(cardText);
-    return card;
-}
-
-async function fetchProjectDays() {
-    const htmlFiles = [];
-    let i = 1;
-
-    while (i<=2) {
-        try {
-            const response = await fetch(`./${htmlFolder}/day${i}/day${i}.html`);
-
-            if (!response.ok) {
-                break;
-            }
-            const htmlContent = await response.text();
-            const titleMatch = htmlContent.match(/<title>(.*?)<\/title>/i);
-            const descriptionMatch = htmlContent?.match(/<meta\s+name=["']description["']\s+content=["'](.*?)["']\s*\/?>/i);
-
-            // For empty projects
-            const fileTitle = titleMatch ? titleMatch[1] : 'Coming soon';
-            const fileDescription = descriptionMatch ? descriptionMatch[1] : ' ';
-            htmlFiles.push({ name: `day${i}.html`, fileTitle, fileDescription });
-            i++;
-        } catch (error) {
-            console.error(error);
-            break;
+        })
+        // Conditionally add a different class based on the value of fileTitle
+        if (title === 'Coming soon') {
+            card.classList.add('coming-soon');
         }
+
+
+        const cardText = document.createElement('div');
+        cardText.classList.add('text');
+        cardText.textContent = description;
+
+        card.appendChild(icon);
+        card.appendChild(cardTitle);
+        card.appendChild(cardText);
+        return card;
     }
 
-    return htmlFiles;
-}
-fetchProjectDays("days").then((htmlFiles) => {
-  htmlFiles.forEach((file, index) => {
-    const card = createProjectCard(index+1, file.fileTitle, file.fileDescription, file.name);
-  cardContainer.appendChild(card);
-  });
-})
+    async function fetchProjectDays() {
+        const htmlFiles = [];
+        let i = 1;
+
+        while (i <= 2) {
+            try {
+                const response = await fetch(`${baseURL}/${htmlFolder}/day${i}/day${i}.html`);
+                if (!response.ok) {
+                    break;
+                }
+                const htmlContent = await response.text();
+                const titleMatch = htmlContent.match(/<title>(.*?)<\/title>/i);
+                const descriptionMatch = htmlContent?.match(/<meta\s+name=["']description["']\s+content=["'](.*?)["']\s*\/?>/i);
+
+                // For empty projects
+                const fileTitle = titleMatch ? titleMatch[1] : 'Coming soon';
+                const fileDescription = descriptionMatch ? descriptionMatch[1] : ' ';
+                htmlFiles.push({ name: `day${i}.html`, fileTitle, fileDescription });
+                i++;
+            } catch (error) {
+                console.error(error);
+                break;
+            }
+        }
+
+        return htmlFiles;
+    }
+    fetchProjectDays("days").then((htmlFiles) => {
+        htmlFiles.forEach((file, index) => {
+            const card = createProjectCard(index + 1, file.fileTitle, file.fileDescription, file.name);
+            cardContainer.appendChild(card);
+        });
+    })
 });
