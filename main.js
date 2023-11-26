@@ -1,9 +1,15 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const cardContainer = document.getElementById("cardContainer");
     const htmlFolder = "days";
-    // const baseURL = 'http://localhost:5173/':'https://100-days-of-vanilla.netlify.app/';
+    let baseURL = ''; // Default empty base URL
 
-    const baseURL = 'http://localhost:5173/';
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      baseURL = 'http://localhost:5173/';
+    } else if (window.location.hostname === '100-days-of-vanilla.netlify.app') {
+      baseURL = 'https://100-days-of-vanilla.netlify.app/';
+    } else {
+     
+    }
 
     function createProjectCard(day, title, description, name) {
         const card = document.createElement('div');
