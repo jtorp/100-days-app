@@ -2,15 +2,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const cardContainer = document.getElementById("cardContainer");
     const htmlFolder = "days";
     let baseURL = ''; // Default empty base URL
-
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      baseURL = 'http://localhost:5173/';
-    } else if (window.location.hostname === '100-days-of-vanilla.netlify.app') {
-      baseURL = 'https://100-days-of-vanilla.netlify.app/';
-    } else {
-     
-    }
-
     async function fetchProjectDays() {
         const htmlFiles = [];
         let i = 1;
