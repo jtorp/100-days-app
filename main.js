@@ -1,34 +1,10 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const cardContainer = document.getElementById("cardContainer");
     const htmlFolder = "days";
-    let baseURL = ''; // Default empty base URL
-    async function fetchProjectDays() {
-        const htmlFiles = [];
-        let i = 1;
+    // const baseURL = 'http://localhost:5173/':'https://100-days-of-vanilla.netlify.app/';
 
-        while (i <= 2) {
-            try {
-                const response = await fetch(`${baseURL}/${htmlFolder}/day${i}/day${i}.html`);
-                if (!response.ok) {
-                    break;
-                }
-                const htmlContent = await response.text();
-                const titleMatch = htmlContent.match(/<title>(.*?)<\/title>/i);
-                const descriptionMatch = htmlContent?.match(/<meta\s+name=["']description["']\s+content=["'](.*?)["']\s*\/?>/i);
+    const baseURL = 'http://localhost:5173/';
 
-                // For empty projects
-                const fileTitle = titleMatch ? titleMatch[1] : 'Coming soon';
-                const fileDescription = descriptionMatch ? descriptionMatch[1] : ' ';
-                htmlFiles.push({ name: `day${i}.html`, fileTitle, fileDescription });
-                i++;
-            } catch (error) {
-                console.error(error);
-                break;
-            }
-        }
-
-        return htmlFiles;
-    }
     function createProjectCard(day, title, description, name) {
         const card = document.createElement('div');
         card.classList.add('card');
@@ -60,6 +36,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return card;
     }
 
+    async function fetchProjectDays() {
+        const htmlFiles = [];
+        let i = 1;
+
+        while (i <= 2) {
+            try {
+                const response = await fetch(`${baseURL}/${htmlFolder}/day${i}/day${i}.html`);
+                if (!response.ok) {
+                    break;
+                }
+                const htmlContent = await response.text();
+                const titleMatch = htmlContent.match(/<title>(.*?)<\/title>/i);
+                const descriptionMatch = htmlContent?.match(/<meta\s+name=["']description["']\s+content=["'](.*?)["']\s*\/?>/i);
+
+                // For empty projects
+                const fileTitle = titleMatch ? titleMatch[1] : 'Coming soon';
+                const fileDescription = descriptionMatch ? descriptionMatch[1] : ' ';
+                htmlFiles.push({ name: `day${i}.html`, fileTitle, fileDescription });
+                i++;
+            } catch (error) {
+                console.error(error);
+                break;
+            }
+        }
+
+        return htmlFiles;
+    }
     fetchProjectDays("days").then((htmlFiles) => {
         htmlFiles.forEach((file, index) => {
             const card = createProjectCard(index + 1, file.fileTitle, file.fileDescription, file.name);
