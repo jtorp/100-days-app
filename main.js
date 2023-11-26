@@ -11,37 +11,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
      
     }
 
-    function createProjectCard(day, title, description, name) {
-        const card = document.createElement('div');
-        card.classList.add('card');
-        const icon = document.createElement('div');
-
-        icon.classList.add('icon');
-        icon.textContent = `${day}`;
-
-        const cardTitle = document.createElement('div');
-        cardTitle.classList.add('title');
-        cardTitle.textContent = title;
-        cardTitle.addEventListener('click', function () {
-            window.location.assign(`./${htmlFolder}/day${day}/day${day}.html`);
-
-        })
-        // Conditionally add a different class based on the value of fileTitle
-        if (title === 'Coming soon') {
-            card.classList.add('coming-soon');
-        }
-
-
-        const cardText = document.createElement('div');
-        cardText.classList.add('text');
-        cardText.textContent = description;
-
-        card.appendChild(icon);
-        card.appendChild(cardTitle);
-        card.appendChild(cardText);
-        return card;
-    }
-
     async function fetchProjectDays() {
         const htmlFiles = [];
         let i = 1;
@@ -69,6 +38,37 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         return htmlFiles;
     }
+    function createProjectCard(day, title, description, name) {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        const icon = document.createElement('div');
+
+        icon.classList.add('icon');
+        icon.textContent = `${day}`;
+
+        const cardTitle = document.createElement('div');
+        cardTitle.classList.add('title');
+        cardTitle.textContent = title;
+        cardTitle.addEventListener('click', function () {
+            window.location.assign(`${baseURL}/${htmlFolder}/day${day}/day${day}.html`);
+
+        })
+        // Conditionally add a different class based on the value of fileTitle
+        if (title === 'Coming soon') {
+            card.classList.add('coming-soon');
+        }
+
+
+        const cardText = document.createElement('div');
+        cardText.classList.add('text');
+        cardText.textContent = description;
+
+        card.appendChild(icon);
+        card.appendChild(cardTitle);
+        card.appendChild(cardText);
+        return card;
+    }
+
     fetchProjectDays("days").then((htmlFiles) => {
         htmlFiles.forEach((file, index) => {
             const card = createProjectCard(index + 1, file.fileTitle, file.fileDescription, file.name);
