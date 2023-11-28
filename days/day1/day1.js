@@ -8,32 +8,33 @@ document.addEventListener('DOMContentLoaded', function () {
     const loader = document.getElementById('loader');
     const form = document.getElementById('form');
     const textInput = document.getElementById('town');
-    let geoCoordinates = null;
     let location = document.getElementById('location');
+
 
     async function handleGetGeoLocation() {
         async function geoLocationSuccess(position) {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
-            const geoCoordinates = { lat, lon };
 
             try {
                 const osm = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
                 const response = await fetch(osm);
-                
+
+
                 if (!response.ok) {
                     throw new Error('Error fetching data');
                 }
+                loader.style.display = 'block';
 
                 const data = await response.json();
-                location ='loding...';
-                location= data.address?.town + ', ' + data.address?.country || 'Unknown';
-                store={
+                location = data.address?.town + ', ' + data.address?.country || 'Unknown';
+                store = {
                     ...store,
                     name: location
                 }
 
                 await fetchWeatherData();
+                loader.style.display = 'none';
 
             } catch (error) {
                 console.error('Error fetching town information:', error);
@@ -48,11 +49,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!navigator.geolocation) {
             location.innerText = 'Geolocation is not supported by your browser';
         } else {
-            location = 'Locating...';
             navigator.geolocation.getCurrentPosition(geoLocationSuccess, geoLocationError);
         }
     }
-
+    handleGetGeoLocation();
     document.querySelector("#geoLocationBtn")?.addEventListener("click", handleGetGeoLocation);
     // ---------------
     // Weather API https://www.weatherapi.com/
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentForcast = document.getElementById('forecast');
     const futureForecast = document.getElementById('future');
     let store = {
-        name: location || localStorage.getItem('location_WW') || 'loding...',
+        name: location || localStorage.getItem('location_WW') || 'Las Vegas',
         last_updated: "",
         last_updated_epoch: 0,
         localtime: "",
@@ -69,26 +69,28 @@ document.addEventListener('DOMContentLoaded', function () {
         feelslike_c: 0,
         is_day: 1,
         temp_c: 0,
-        astro:{},
+        astro: {},
         properties: {
             cloud: {},
             uv: {},
             vis_km: {},
             humidity: {},
-            wind_kph : {},
-            avgtemp_c: {value: 0},
+            wind_kph: {},
+            avgtemp_c: { value: 0 },
 
         },
 
-        forecastday: [], 
+        forecastday: [],
     };
 
 
     const fetchWeatherData = async () => {
+        const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
         try {
             loader.style.display = 'block';
-            const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=87a5d91b5b6d49aeb31181805232011&q=${store.name}&days=3&aqi=no&alerts=no
+            const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${store.name}&days=4&aqi=no&alerts=no
         `);
+
             const weatherData = await response.json();
             loader.style.display = 'none';
             const {
@@ -105,11 +107,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     uv,
                     condition: { text: conditionText, icon },
                 },
-            forecast: {
-                forecastday
-            }
+                forecast: {
+                    forecastday
+                }
             } = weatherData;
-            console.log(weatherData);
+
             store = {
                 ...store,
                 name,
@@ -121,43 +123,42 @@ document.addEventListener('DOMContentLoaded', function () {
                 feelslike_c,
                 is_day,
                 temp_c,
-                    properties: {
-                        cloud: {
-                            icon:`cloud`,
-                            value:`Cloudiness:${cloud}%`
-                        },
-                        avgtemp_c: {
-                            icon: "thermometer",
-                            value:`Average Temp: ${forecastday[0].day.avgtemp_c}°C`
-                        },
-                        uv: {
-                            icon: "sunny",
-                            value:`UV Index:${uv}`
-                        },
-                        vis_km: {
-                            icon: "visibility",
-                            value:`Visibility: ${vis_km} km`
-                        },
-                        humidity: {
-                            icon: "humidity_percentage",
-                            value:`Humidity ${humidity}%`
-                        },
-                        wind_kph : {
-                            icon: "air",
-                            value:`Wind Speed: ${wind_kph} km/h`
-                        }
-                    },  
-                    forecastday,
+                properties: {
+                    cloud: {
+                        icon: `cloud`,
+                        value: `Cloudiness:${cloud}%`
+                    },
+                    avgtemp_c: {
+                        icon: "thermometer",
+                        value: `Average Temp: ${forecastday[0].day.avgtemp_c}°C`
+                    },
+                    uv: {
+                        icon: "sunny",
+                        value: `UV Index:${uv}`
+                    },
+                    vis_km: {
+                        icon: "visibility",
+                        value: `Visibility: ${vis_km} km`
+                    },
+                    humidity: {
+                        icon: "humidity_percentage",
+                        value: `Humidity ${humidity}%`
+                    },
+                    wind_kph: {
+                        icon: "air",
+                        value: `Wind Speed: ${wind_kph} km/h`
+                    }
+                },
+                forecastday,
             };
             renderCurrentForecast();
             renderFutureForecast();
             changeBackgroundColor(is_day);
             document.getElementById('lastUpdated').innerHTML = `Last Updated: ${last_updated}`
-     
+
         } catch (error) {
-           
-            currentForcast.innerHTML = `Error connecting to weather data, please try again later`;
-            console.error('Error fetching weather data:', error.message);
+            console.log(error)
+            currentForcast.innerHTML = `${error.message}`;
 
         }
     }
@@ -167,7 +168,11 @@ document.addEventListener('DOMContentLoaded', function () {
         return `
      <h1 id="location">${store.name}</h1>
      <h3 class="info"> ${store.country}</h3>
-     <small>${store.localtime.split(' ')[0]}, at <b>${store.localtime.split(' ')[1]}</b></small>
+     <small>
+     <b>${getDayOfWeek(store.localtime.split(' ')[0])}</b>,
+     ${store.localtime.split(' ')[0].slice(5)},
+    ${store.localtime.split(' ')[1]}
+     </small>
     <div class="astro">
     <p>
 
@@ -190,32 +195,29 @@ document.addEventListener('DOMContentLoaded', function () {
     <p class="feelslike">Real Feel ${store.feelslike_c}</p>
     <div class="properties">${currentProperties(store.properties)}</div>
     `
-}
+    }
 
     const currentProperties = (properties) => {
- return Object.values(properties).map(({icon, value}) => {
-    return  `<p> <span class="property material-symbols-outlined">${icon}</span>
+        return Object.values(properties).map(({ icon, value }) => {
+            return `<p> <span class="property material-symbols-outlined">${icon}</span>
     ${value}
     </p>
     `
-}).join('') }
+        }).join('')
+    }
 
-const getDayOfWeek = (str) => {
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const date = new Date(str);
-    const dayIndex = date.getDay(); // weekday index (0-6)
-    return daysOfWeek[dayIndex]; 
-  };
-const futureMarkup = () => {
-    const { forecastday } = store || { forecastday: [] };
-    return forecastday?.map((day, index) => {
-      let dayText = '';
-      if (index === 0) {
-        dayText = day.date === store.localtime.split(' ')[0] ? 'Today' : getDayOfWeek(day.date);
-      } else {
-        dayText = getDayOfWeek(day.date); 
-      }
-      return `
+    const getDayOfWeek = (str) => {
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const date = new Date(str);
+        const dayIndex = date.getDay(); // weekday index (0-6)
+        return daysOfWeek[dayIndex];
+    };
+
+    const futureMarkup = () => {
+        const { forecastday } = store || { forecastday: [] };
+        return forecastday?.slice(1).map((day, index) => {
+            let dayText = getDayOfWeek(day.date);
+            return `
         <div class="container">
           <h3 class="day">${dayText}</h3>
           <div class="weatherIcon">
@@ -228,8 +230,8 @@ const futureMarkup = () => {
           </p>
         </div>
       `;
-    }).join('');
-  };
+        }).join('')
+    }
 
 
     const renderCurrentForecast = () => {
@@ -239,52 +241,50 @@ const futureMarkup = () => {
         futureForecast.innerHTML = futureMarkup();
     }
 
-const changeBackgroundColor = (is_day) => {
-    const body = document.body;
-    if (is_day === 0) {
-        body.style.backgroundColor = '#1a1b4b';
-        body.style.color = '#f5f5f5';
-    
-    } else {
-        body.style.backgroundColor = '#3a9efd';
-        body.style.color = '#fff';
-    }   
-    
-};
-// ---------------
-// Handle user input
-// ---------------
+    const changeBackgroundColor = (is_day) => {
+        const body = document.body;
+        if (is_day === 0) {
+            body.style.backgroundColor = '#1a1b4b';
+            body.style.color = '#f5f5f5';
 
-const handleInput = (e) => {
-    const value = e.target.value;
-    const validValue = value.match(/^[a-zA-Z\s'-]+$/);
-    if(validValue) {
-        store.name = value.trim();
-    }
-   else {
-    console.error('Invalid input');
-}
-}
+        } else {
+            body.style.backgroundColor = '#3a9efd';
+            body.style.color = '#fff';
+        }
 
-const handleSubmit = (e) => {
-    e.preventDefault();
-    const value = store.name;
-    if(!value || value === 'loding...') {
-       return null
+    };
+    // ---------------
+    // Handle user input
+    // ---------------
+
+    const handleInput = (e) => {
+        const value = e.target.value;
+        const validValue = value.match(/^[a-zA-Z\s'-]+$/);
+        if (validValue) {
+            store.name = value.trim();
+        }
+        else {
+            console.error('Invalid input for location');
+        }
     }
-    localStorage.setItem('location_WW', value);
-    fetchWeatherData().then(()=>{
-        textInput.value = '';
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const value = store.name;
+        if (!value || value === 'loding...') {
+            return null
+        }
+        localStorage.setItem('location_WW', value);
+        fetchWeatherData().then(() => {
+            textInput.value = '';
+        });
+    }
+    form.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleSubmit(e);
+        }
     });
-}
-form.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault(); 
-        handleSubmit(event); 
-    }
-});
-textInput.addEventListener('input', handleInput);
-form.addEventListener('submit', handleSubmit);
-
-   // handleGetGeoLocation()
+    textInput.addEventListener('input', handleInput);
+    form.addEventListener('submit', handleSubmit);
 })
