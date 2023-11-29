@@ -23,13 +23,15 @@
             <form action="GET" method="get" id="form" class="box">
                 <div class="location-box">
                     <input type="text" name="town" required id="town">
-                    <label>Find Location</label>
+                    <label for="town">Find Location</label>
                 </div>
             </form>
         </nav>
-        <!-- <div class="lds-ripple"><div></div><div></div></div> -->
-        <div id="forecast"></div>
 
+        <div id="forecast">
+            <div id="loader">
+            </div>
+        </div>
     </div>
     <div class="wrapper">
         <div id="future">

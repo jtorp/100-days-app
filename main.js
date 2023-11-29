@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const cardContainer = document.getElementById("cardContainer");
     const htmlFolder = "days";
-    // const baseURL = 'http://localhost:5173/':'https://100-days-of-vanilla.netlify.app/';
-
-    const baseURL = 'http://localhost:5173/';
+    const baseURL = 'http://localhost:5173';
 
     function createProjectCard(day, title, description, name) {
         const card = document.createElement('div');
