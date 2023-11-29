@@ -4,38 +4,7 @@
 	padding: 0;
 }
 
-input:-webkit-autofill {
-	color: #ffffff;
-    -webkit-box-shadow: 0 0 0 0px #1a1b4b inset; /* Change the color here */
-}
-a {
-	color: #9acefe;
-	font-weight: 600;
-	font-size: 1rem;
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
 body {
-	color: #282828;
-	background-color: rgba(255, 255, 255, 0.45);
-	font-family: 'Alegreya Sans', sans-serif;
-	position: relative;
-	letter-spacing: 0.05rem;
-	line-height: 1.5;
-	text-align: center;
-}
-
-:focus {
-	outline: none;
-}
-
-.wrapper {
-	overflow: auto;
-	width: 100%;
-	padding: 1rem .4rem;
+	margin: 0;
 }
 
