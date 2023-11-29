@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const cardContainer = document.getElementById("cardContainer");
     const htmlFolder = "days";
-    const baseURL = 'http://localhost:5173';
+    const baseURL = 'http://localhost:5173' || ''; // Replace with your base URL;
 
     function createProjectCard(day, title, description, name) {
         const card = document.createElement('div');

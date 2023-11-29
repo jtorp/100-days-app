@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentForcast = document.getElementById('forecast');
     const futureForecast = document.getElementById('future');
     let store = {
-        name: location || localStorage.getItem('location_WW') || 'Las Vegas',
+        name: location || 'Las Vegas',
         last_updated: "",
         last_updated_epoch: 0,
         localtime: "",
@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
         try {
             loader.style.display = 'block';
+            
             const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${store.name}&days=4&aqi=no&alerts=no
         `);
 
