@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const cardContainer = document.getElementById("cardContainer");
     const htmlFolder = "days";
-    const baseURL = 'https://100-days-of-vanilla.netlify.app'; 
+    const baseURL = ""; 
 
     function createProjectCard(day, title, description, name) {
         const card = document.createElement('div');
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         cardTitle.classList.add('title');
         cardTitle.textContent = title;
         cardTitle.addEventListener('click', function () {
-            window.location.assign(`${baseURL}/${htmlFolder}/day${day}/day${day}.html`);
+            window.location.assign(`${htmlFolder}/day${day}/day${day}.html`);
 
         })
         // Conditionally add a different class based on the value of fileTitle
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         while (i <= 2) {
             try {
-                const response = await fetch(`${baseURL}/${htmlFolder}/day${i}/day${i}.html`);
+                const response = await fetch(`${htmlFolder}/day${i}/day${i}.html`);
                 if (!response.ok) {
                     break;
                 }
